@@ -1,2 +1,2 @@
 # NightClock
-a relaxing night clock called NightClock for Nintendo 3ds
+a relaxing clock app for Nintendo 3ds called NightClock
