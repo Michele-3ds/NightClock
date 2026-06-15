@@ -5,7 +5,8 @@ It has been in development by me since June 5th 2026 and tested on Citra and on 
 I love to keep my New 3ds XL switched on while I work at my desktop or while I watch tv so had the Idea to create a relaxing clock app full of features.
 FEATURES:
 - the night stars sky is randomly generated every time you open the app and the stars blink
-- the clouds are randomly generated too on a 7-layer system
+- The sleeping moon gently glows
+- the clouds are randomly generated on a 7-layer system
 - the planes spawn randomly
 - the shooting stars spawn randomly
 - The clock (and date) is synced with the internal clock of the 3ds, to sync the clock with the Internet time please use rosalina: (Open the Rosalina menu by pressing L + Down on the D-Pad + Select.Select Miscellaneous options.Choose Update date and time via NTP, quit Rosalina)
