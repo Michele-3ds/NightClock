@@ -1,0 +1,15 @@
+# Cartelle temporanee di compilazione
+build/
+
+# Eseguibili intermedi e mappe di memoria
+*.elf
+*.map
+
+# File finali per Nintendo 3DS (Homebrew e installabili)
+*.3dsx
+*.smdh
+*.cia
+
+# File di sistema del computer (opzionale ma utile)
+.DS_Store
+Thumbs.db
