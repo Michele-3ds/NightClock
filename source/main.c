@@ -41,7 +41,7 @@ typedef struct {
 typedef struct {
     u32 clockColorIndex;
     u32 timeFormat24h;
-    u32 dateFormatEU;
+    u32 dateFormat; // 0 = US, 1 = EU, 2 = ISO
     u32 bgThemeIndex;   
     u32 clockSizePreset; 
     u32 clockMode;       
@@ -747,12 +747,15 @@ static void drawClock(C2D_TextBuf buf, struct tm* tmv) {
                  (tmv->tm_hour >= 12) ? "pm" : "am");
     }
 
-    if (settings.dateFormatEU)
-        snprintf(dateStr, sizeof(dateStr), "%02d/%02d/%04d",
-                 tmv->tm_mday, tmv->tm_mon+1, tmv->tm_year+1900);
-    else
+    if (settings.dateFormat == 0) // US date format
         snprintf(dateStr, sizeof(dateStr), "%02d/%02d/%04d",
                  tmv->tm_mon+1, tmv->tm_mday, tmv->tm_year+1900);
+    else if (settings.dateFormat == 1) // EU date format
+        snprintf(dateStr, sizeof(dateStr), "%02d/%02d/%04d",
+                 tmv->tm_mday, tmv->tm_mon+1, tmv->tm_year+1900);
+    else // ISO date format
+        snprintf(dateStr, sizeof(dateStr), "%04d-%02d-%02d",
+                 tmv->tm_year+1900, tmv->tm_mon+1, tmv->tm_mday);
 
     C2D_Text timeText, dateText;
     C2D_TextParse(&timeText, buf, timeStr); C2D_TextOptimize(&timeText);
@@ -962,7 +965,7 @@ static void drawBottomScreen(C2D_TextBuf buf, C3D_RenderTarget* target) {
         C2D_DrawRectSolid(15, 111, 0.0f, 290, 26, C2D_Color32(45, 55, 45, 255));
         C2D_DrawText(&tTF, C2D_WithColor, 25, 116, 0.5f, 0.50f, 0.50f, colWhite);
 
-        char dateFmtStr[64]; snprintf(dateFmtStr, sizeof(dateFmtStr), "Date Format: <%s>", settings.dateFormatEU ? "DD/MM/YYYY (EU)" : "MM/DD/YYYY (USA)");
+        char dateFmtStr[64]; snprintf(dateFmtStr, sizeof(dateFmtStr), "Date Format: <%s>", settings.dateFormat == 2 ? "YYYY-MM-DD (ISO)" : (settings.dateFormat ? "DD/MM/YYYY (EU)" : "MM/DD/YYYY (USA)"));
         C2D_Text tDF; C2D_TextParse(&tDF, buf, dateFmtStr); C2D_TextOptimize(&tDF);
         C2D_DrawRectSolid(15, 144, 0.0f, 290, 26, C2D_Color32(45, 55, 45, 255));
         C2D_DrawText(&tDF, C2D_WithColor, 25, 149, 0.5f, 0.50f, 0.50f, colWhite);
@@ -1076,7 +1079,7 @@ static int updateInput() {
                     settingsDirty = true;
                 }
                 if (touch.py >= 144 && touch.py <= 170) {
-                    settings.dateFormatEU = !settings.dateFormatEU;
+                    settings.dateFormat = (settings.dateFormat + 1) % 3;
                     settingsDirty = true;
                 }
             }
