@@ -21,3 +21,10 @@ FEATURES:
 - more features to come...
 - please send feedbacks to my mail : michelep3ds@gmail.com
 - thanks
+
+Ver 1.02 
+-added ISO date format
+
+Ver 1.03
+-added an alarm clock and a time
+-fixed save data to save settings only on app quit (Start button) to prevent lags in app usage.
